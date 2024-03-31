@@ -4,7 +4,6 @@
 """
 
 import csv
-import math
 from typing import List, Tuple
 
 
@@ -40,7 +39,6 @@ class Server:
         if start >= csv_size:
             return []
         return self.dataset()[start:end]
-
 
     def index_range(page: int, page_size: int) -> Tuple[int, int]:
         """ Returns a tuple containing a start and end index.
