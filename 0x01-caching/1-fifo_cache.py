@@ -13,7 +13,7 @@ class FIFOCache(BaseCaching):
         """ intialize
         """
         super(). __init__()
-        self.que = ()
+        self.queue = []
 
     def put(self, key, item):
         """adding items in the cache
