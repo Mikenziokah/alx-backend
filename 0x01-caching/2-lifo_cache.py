@@ -1,37 +1,50 @@
 #!/usr/bin/python3
-"""class LIFOCache that inherits from BaseCaching and is a
-    caching system
+""" 2. LIFO Caching
 """
+
+from collections import deque
 
 BaseCaching = __import__("base_caching").BaseCaching
 
 
 class LIFOCache(BaseCaching):
-    """ a lifo caching system that inherits from the basecache
+    """ You must use self.cache_data - dictionary from the parent class
+    BaseCaching
     """
+
     def __init__(self):
-        """ initialize
+        """ Init
         """
         super().__init__()
-        self.stack = []
+        self.queue = deque()
 
     def put(self, key, item):
-        """ adding items in the cache
+        """ Must assign to the dictionary self.cache_data the item value for
+        the key key
         """
-        if key is None and item is None:
-            return
-
-        if len(self.cache_data) >= BaseCaching.MAX_ITEMS:
-            discarded_key = self.stack.pop()
-            del self.cache_data[discarded_key]
-            print("DISCARD:", discarded_key)
-
-        self.stack.append(key)
-        self.cache_data[key] = item
+        if key and item:
+            if key in self.cache_data:
+                self.queue.remove(key)
+            elif self.is_full():
+                self.evict()
+            self.queue.append(key)
+            self.cache_data[key] = item
 
     def get(self, key):
-        """Retrieve an item from the cache
+        """ Must return the value in self.cache_data linked to key.
         """
-        if key is None or key not in self.cache_data:
-            return None
-        return self.cache_data[key]
+        return self.cache_data.get(key, None)
+
+    def is_full(self):
+        """ If the number of items in self.cache_data is higher that
+        BaseCaching.MAX_ITEMS
+        """
+        return len(self.cache_data) >= self.MAX_ITEMS
+
+    def evict(self):
+        """ you must print DISCARD: with the key discarded and following by a
+        new line -pop-
+        """
+        popped = self.queue.pop()
+        del self.cache_data[popped]
+        print("DISCARD: " + str(popped))
