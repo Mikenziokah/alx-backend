@@ -22,10 +22,10 @@ class LifoCache(BaseCaching):
         if key is None and item is None:
             return
 
-        if len(self.cache_data) => BaseCaching.MAX_ITEMS:
+        if len(self.cache_data) >= BaseCaching.MAX_ITEMS:
             discarded_key = self.stack.pop()
             del self.cache_data(discarded_key]
-            print("DISCARD:",discarded_key)
+            print("DISCARD:", discarded_key)
 
         self.stack.append(key)
         self.cache_data[key] = item
