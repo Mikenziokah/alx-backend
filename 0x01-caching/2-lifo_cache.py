@@ -6,7 +6,6 @@
 from base_caching import BaseCaching
 
 
-
 class LIFOCache(BaseCaching):
     """ a lifo caching system that inherits from the basecache
     """
@@ -29,7 +28,6 @@ class LIFOCache(BaseCaching):
 
         self.stack.append(key)
         self.cache_data[key] = item
-
 
     def get(self, key):
         """Retrieve an item from the cache
